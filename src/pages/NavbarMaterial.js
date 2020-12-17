@@ -12,7 +12,7 @@ import Login from './Login';
 import Card from './Card';
 import Product from './Product';
 import Home from './Home';
-
+import FirebaseAuth from '../components/Login/FirebaseAuth';
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -100,7 +100,7 @@ export default function FullWidthTabs() {
           <Card/>
         </TabPanel>
         <TabPanel value={value} index={3} dir={theme.direction}>
-          <Login/>
+        < FirebaseAuth/>
         </TabPanel>
         <TabPanel value={value} index={4} dir={theme.direction}>
           <Register/>

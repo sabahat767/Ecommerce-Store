@@ -29,10 +29,13 @@ const useStyles = makeStyles((theme) => ({
    textAlign:'end'
   },
 }));
-function Home() {
+function Home({handleLogout}) {
     const classes = useStyles();
     return (
         <div className={classes.root}>
+          <Button size="small" color="primary" onClick={handleLogout}>
+         Logout
+        </Button>
       <Grid container spacing={2}>
         
         <Grid item xs={6} sm={6}>
@@ -49,9 +52,7 @@ function Home() {
         </CardContent>
       </CardActionArea>
       <CardActions>
-        <Button size="small" color="primary">
-          Share
-        </Button>
+        
         <Button size="small" color="primary">
           Learn More
         </Button>

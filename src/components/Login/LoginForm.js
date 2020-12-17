@@ -1,104 +1,79 @@
-import React from "react";
-import ReactDOM from "react-dom";
-import { useForm } from "react-hook-form";
-import {
-    Button,
-    TextField,
-    Grid,
-    Paper,
-    AppBar,
-    Typography,
-    Toolbar,
-    Link,
-    } from "@material-ui/core";
-import '../../App.css';
+import React from 'react';
+import Card from '@material-ui/core/Card';
+import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
+import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
-const useStyles = makeStyles(theme => ({
-    form: {
-      display: 'flex',
-      flexDirection: 'column',
-      justifyContent: 'center',
-      alignItems: 'center'
-    },
-    button: {
-      margin: 'auto',
-      justifyContent:'center',
-      textAlign:'center'
-    }
-  }));
-export default function LoginForm() {
-  const { register, handleSubmit, watch, errors } = useForm();
-  const onSubmit = data => {
-    console.log(data);
-    alert("Login Successful")
-  }; // your form submit function which will invoke after successful validation
+const useStyles = makeStyles({
+  root: {
+    width: '30%',
+    margin:'auto',
+    justifyContent:'end',
+    textAlign:'center',
+    marginTop:'70px'
+  },
 
-  //console.log(watch("username")); // you can watch individual input by pass the name of the input
-// console.log(register)
-const classes = useStyles();
-  return (
-      <>
-      <Grid container spacing={0} justify="center" direction="row" >
-<Grid item>
-<Grid
-container
-direction="column"
-justify="center"
-spacing={2}
-className="login-form"
->
-<Paper
-variant="elevation"
-elevation={2}
-className="login-background"
->
-<Grid item>
-<Typography component="h1" variant="h5">
-Sign in
-</Typography>
-</Grid>
-<Grid item>
-    <form onSubmit={handleSubmit(onSubmit)}>
-    <Grid container direction="column" spacing={2}>
-<Grid item>
-      <TextField
-type="email"
-placeholder="Email"
-fullWidth
-name="username"
-variant="outlined"
 
-required
-autoFocus
-/>
-<TextField
-type="password"
-placeholder="Password"
-fullWidth
-name="password"
-variant="outlined"
+});
+const LoginForm = (props) =>{
+  const {email,
+    setEmail,
+     password,
+     setPassword,
+     handleLogin,
+     handleSignup,
+     hasAccount,
+     setHasAccount,
+     emailError,
+     passwordError,
+    }=props;
+    const classes = useStyles();
+  return(
 
-required
-/>
-      {/* {errors.exampleRequired && <p>This field is required</p>} */}
-      </Grid>
-<Grid item>
-      <Button variant="contained" color="primary" disableElevation
->Submit</Button>
-</Grid>
-</Grid>
-    </form>
-    </Grid>
-<Grid item>
-<Link href="#" variant="body2">
-Forgot Password?
-</Link>
-</Grid>
-</Paper>
-</Grid>
-</Grid>
-</Grid>
+    <Card className={classes.root}>
+     <Typography variant="h5" component="h2">Login Form using Firebase Auth</Typography>
+    <TextField 
+    id="standard-basic"
+    label="Username"
+    type='text'
+    autoFocus
+    required
+    value={email}
+    onChange={e=> setEmail(e.target.value)}
+    
+    />
+    <p>{emailError}</p>
+    <TextField 
+    id="standard-basic"
+    label="Password" 
+    type='password'
+    autoFocus
+    required
+    value={password}
+    onChange={(e)=>setPassword(e.target.value)}
+  />
+    <p>{passwordError}</p>
+    <div>
+      {hasAccount ? (
+<>
+<Button variant="contained" color="primary" onClick={handleLogin}>Sign In</Button>
+<p>Don't have an account? 
+  <span onClick={()=>setHasAccount(!hasAccount)}>Sign Up</span>
+  </p>
+</>
+      ):(
+<>
+<Button variant="contained" color="primary" onClick={handleSignup}>
+Sign Up
+      </Button>
 
-    </>
-  );
+<p>Have an account? 
+  <span onClick={()=>setHasAccount(!hasAccount)}>Sign In</span>
+  </p>
+</>
+      )}
+    </div>
+    </Card>
+  )
 }
+export default LoginForm;
